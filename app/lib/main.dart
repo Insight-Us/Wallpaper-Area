@@ -1,6 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+import 'dart:io';
 
 void main() => runApp(new MaterialApp(
       home: home(),
@@ -13,6 +16,39 @@ class home extends StatefulWidget {
 }
 
 class _homeState extends State<home> {
+  final String url = "http://127.0.0.1:8000/languages/";
+  List data;
+
+  @override
+  void initState() {
+    super.initState();
+    this.getJsonData();
+  }
+
+  Future<String> getJsonData() async {
+    // final response = await http.get('https://jsonplaceholder.typicode.com/posts/');
+    final response = await http.get(new Uri(host: 'localhost:8000/languages/', port: 8000,));
+
+    debugPrint(response.body);
+
+    setState(() {
+      var convertDataToJson = jsonDecode(response.body);
+      data = convertDataToJson['results'];
+    });
+    return "Success";
+  }
+
+  Future<String> getContacts() async {
+    var httpClient = new HttpClient();
+    var uri = new Uri.http('127.0.0.1:8000', '/languages/');
+    var request = await httpClient.getUrl(uri);
+    var response = await request.close();
+    debugPrint(response.statusCode.toString());
+    var responseBody = await response.transform(utf8.decoder).join();
+    debugPrint(responseBody);
+    return "Success";
+  }
+
   // AppBar logo image asset
   Widget getImageAsset() {
     AssetImage image = AssetImage('assets/logo.png');
