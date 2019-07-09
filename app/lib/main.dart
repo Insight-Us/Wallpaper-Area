@@ -16,7 +16,7 @@ class home extends StatefulWidget {
 }
 
 class _homeState extends State<home> {
-  final String url = "http://127.0.0.1:8000/languages/";
+  final String url = "https://vivrti.pythonanywhere.com/api/";
   List data;
 
   @override
@@ -25,9 +25,17 @@ class _homeState extends State<home> {
     this.getJsonData();
   }
 
+  /*
+    Animation controller
+  */
+
+  Animation _wallpaperAnimation;
+  AnimationController _wallpaperAnimationController;
+
   Future<String> getJsonData() async {
     // final response = await http.get('https://jsonplaceholder.typicode.com/posts/');
-    final response = await http.get(new Uri(host: 'localhost:8000/languages/', port: 8000,));
+    final response =
+        await http.get(url, headers: {"Accept": "application/json"});
 
     debugPrint(response.body);
 
@@ -38,18 +46,7 @@ class _homeState extends State<home> {
     return "Success";
   }
 
-  Future<String> getContacts() async {
-    var httpClient = new HttpClient();
-    var uri = new Uri.http('127.0.0.1:8000', '/languages/');
-    var request = await httpClient.getUrl(uri);
-    var response = await request.close();
-    debugPrint(response.statusCode.toString());
-    var responseBody = await response.transform(utf8.decoder).join();
-    debugPrint(responseBody);
-    return "Success";
-  }
-
-  // AppBar logo image asset
+  // AppBar logo image assets
   Widget getImageAsset() {
     AssetImage image = AssetImage('assets/logo.png');
     Image img = Image(
@@ -67,11 +64,14 @@ class _homeState extends State<home> {
     return Column(
       mainAxisSize: MainAxisSize.max,
       children: <Widget>[
-        Align(
-          alignment: Alignment.topLeft,
-          child: Text(
-            'Latest',
-            style: TextStyle(fontSize: 18, color: Colors.white),
+        Padding(
+          padding: const EdgeInsets.only(left: 18.0),
+          child: Align(
+            alignment: Alignment.center,
+            child: Text(
+              'Latest',
+              style: TextStyle(fontSize: 18, color: Colors.white),
+            ),
           ),
         ),
         SizedBox(
@@ -79,60 +79,66 @@ class _homeState extends State<home> {
         ),
         Expanded(
           child: ListView.builder(
-            shrinkWrap: true,
-            scrollDirection: Axis.horizontal,
-            itemCount: 5,
-            itemBuilder: (BuildContext context, int index) => Container(
-                  margin: EdgeInsets.only(right: 5.0),
-                  width: MediaQuery.of(context).size.width * 0.4,
-                  child: ClipRRect(
-                      borderRadius: new BorderRadius.circular(8.0),
-                      child: Image.network(
-                        "http://getwallpapers.com/wallpaper/full/5/e/1/674609.jpg",
-                        fit: BoxFit.cover,
-                      )),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(20)),
-                      color: Colors.white),
-                ),
-          ),
+              shrinkWrap: true,
+              scrollDirection: Axis.horizontal,
+              itemCount: data == null ? 0 : data.length,
+              itemBuilder: (BuildContext context, int index) => Container(
+                    margin: EdgeInsets.only(right: 5.0),
+                    width: MediaQuery.of(context).size.width * 0.4,
+                    child: InkWell(
+                      onTap: () {
+                        debugPrint("Pressed $index");
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    Wallpaper(url: data[index]['link'])));
+                      },
+                      child: ClipRRect(
+                          borderRadius: new BorderRadius.circular(8.0),
+                          child: Image.network(
+                            data[index]['link'],
+                            fit: BoxFit.cover,
+                          )),
+                    ),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(20)),
+                        color: Colors.white),
+                  )),
         ),
         SizedBox(
           height: 10,
         ),
-        Align(
-          alignment: Alignment.topLeft,
-          child: Text(
-            'Categories',
-            style: TextStyle(fontSize: 18, color: Colors.white),
+        Padding(
+          padding: const EdgeInsets.only(left: 18.0),
+          child: Align(
+            alignment: Alignment.center,
+            child: Text(
+              'Categories',
+              style: TextStyle(fontSize: 18, color: Colors.white),
+            ),
           ),
         ),
         SizedBox(
           height: 10,
         ),
         Expanded(
-          child: ListView.builder(
+          child: GridView.count(
+            scrollDirection: Axis.vertical,
+            crossAxisCount: 2,
             shrinkWrap: true,
-            itemBuilder: (ctx, int val) {
-              return Container(
-                margin: EdgeInsets.all(5.0),
-                height: 100,
-                child: Stack(
-                  children: <Widget>[
-                    Center(
-                      child: new Text(
-                        "Category $val",
-                        style: TextStyle(color: Colors.white, fontSize: 20),
-                      ),
-                    )
-                  ],
-                ),
+            mainAxisSpacing: 3.0,
+            crossAxisSpacing: 5.0,
+            childAspectRatio: 2.0,
+            children: <Widget>[
+              new Container(
+                height: 20,
                 decoration: BoxDecoration(
-                  color: Colors.green,
-                  borderRadius: BorderRadius.all(Radius.circular(20)),
-                ),
-              );
-            },
+                    borderRadius: BorderRadius.all(Radius.circular(20)),
+                    color: Colors.white),
+                child: Center(child: new Text("Category 1")),
+              ),
+            ],
           ),
         ),
       ],
@@ -151,5 +157,27 @@ class _homeState extends State<home> {
       body: latestView(),
       backgroundColor: Color(0x1F221010),
     );
+  }
+}
+
+// Second screen
+class Wallpaper extends StatelessWidget {
+  String url = "";
+  Wallpaper({this.url});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        body: FittedBox(
+      child: Container(
+        height: MediaQuery.of(context).size.height,
+        child: Image.network(
+          url,
+          width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height,
+          fit: BoxFit.cover,
+        ),
+      ),
+    ));
   }
 }
