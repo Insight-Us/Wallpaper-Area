@@ -17,14 +17,18 @@ class home extends StatefulWidget {
   _homeState createState() => _homeState();
 }
 
-class _homeState extends State<home> {
+class _homeState extends State<home> with TickerProviderStateMixin {
   final String url = "https://vivrti.pythonanywhere.com/api/";
   List data;
 
   @override
   void initState() {
     super.initState();
-    this.getJsonData();
+    setState(() {
+      this.getJsonData();
+    });
+
+    _wallpaperAnimationController = AnimationController(vsync: this, )
   }
 
   /*
@@ -120,7 +124,7 @@ class _homeState extends State<home> {
                           decoration: BoxDecoration(
                               borderRadius:
                                   BorderRadius.all(Radius.circular(20)),
-                              color: Colors.white),
+                              color: Colors.transparent),
                         ));
               }
             },
