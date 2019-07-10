@@ -4,6 +4,8 @@ import 'package:flutter/widgets.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'dart:io';
+import 'package:wallpaper/wallpaper.dart' as wall;
+import 'category.dart';
 
 void main() => runApp(new MaterialApp(
       home: home(),
@@ -37,11 +39,10 @@ class _homeState extends State<home> {
     final response =
         await http.get(url, headers: {"Accept": "application/json"});
 
-    debugPrint(response.body);
-
     setState(() {
       var convertDataToJson = jsonDecode(response.body);
       data = convertDataToJson['results'];
+      data = data.reversed.toList();
     });
     return "Success";
   }
@@ -70,7 +71,8 @@ class _homeState extends State<home> {
             alignment: Alignment.center,
             child: Text(
               'Latest',
-              style: TextStyle(fontSize: 18, color: Colors.white),
+              style: TextStyle(
+                  fontSize: 25, color: Colors.white, fontFamily: 'Schyler'),
             ),
           ),
         ),
@@ -78,33 +80,51 @@ class _homeState extends State<home> {
           height: 10,
         ),
         Expanded(
-          child: ListView.builder(
-              shrinkWrap: true,
-              scrollDirection: Axis.horizontal,
-              itemCount: data == null ? 0 : data.length,
-              itemBuilder: (BuildContext context, int index) => Container(
-                    margin: EdgeInsets.only(right: 5.0),
-                    width: MediaQuery.of(context).size.width * 0.4,
-                    child: InkWell(
-                      onTap: () {
-                        debugPrint("Pressed $index");
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    Wallpaper(url: data[index]['link'])));
-                      },
-                      child: ClipRRect(
-                          borderRadius: new BorderRadius.circular(8.0),
-                          child: Image.network(
-                            data[index]['link'],
-                            fit: BoxFit.cover,
-                          )),
-                    ),
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(20)),
-                        color: Colors.white),
-                  )),
+          child: FutureBuilder(
+            future: getJsonData(),
+            builder: (context, AsyncSnapshot snapshot) {
+              if (snapshot.data == null) {
+                return Center(
+                    child: Container(child: new CircularProgressIndicator()));
+              } else {
+                return ListView.builder(
+                    shrinkWrap: true,
+                    scrollDirection: Axis.horizontal,
+                    itemCount: data.length,
+                    itemBuilder: (BuildContext context, int index) => Container(
+                          margin: EdgeInsets.only(right: 8.0),
+                          width: MediaQuery.of(context).size.width * 0.4,
+                          height: 100,
+                          child: InkWell(
+                            onTap: () {
+                              debugPrint("Pressed $index");
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          wallpaper(url: data[index]['link'])));
+                            },
+                            child: Stack(
+                              fit: StackFit.passthrough,
+                              children: [
+                                ClipRRect(
+                                    borderRadius:
+                                        new BorderRadius.circular(8.0),
+                                    child: Image.network(
+                                      data[index]["link"],
+                                      fit: BoxFit.cover,
+                                    )),
+                              ],
+                            ),
+                          ),
+                          decoration: BoxDecoration(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(20)),
+                              color: Colors.white),
+                        ));
+              }
+            },
+          ),
         ),
         SizedBox(
           height: 10,
@@ -115,32 +135,17 @@ class _homeState extends State<home> {
             alignment: Alignment.center,
             child: Text(
               'Categories',
-              style: TextStyle(fontSize: 18, color: Colors.white),
+              style: TextStyle(
+                  fontSize: 25, color: Colors.white, fontFamily: 'Schyler'),
             ),
           ),
         ),
         SizedBox(
           height: 10,
         ),
-        Expanded(
-          child: GridView.count(
-            scrollDirection: Axis.vertical,
-            crossAxisCount: 2,
-            shrinkWrap: true,
-            mainAxisSpacing: 3.0,
-            crossAxisSpacing: 5.0,
-            childAspectRatio: 2.0,
-            children: <Widget>[
-              new Container(
-                height: 20,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(20)),
-                    color: Colors.white),
-                child: Center(child: new Text("Category 1")),
-              ),
-            ],
-          ),
-        ),
+        new Container(
+          child: new Category(),
+        )
       ],
     );
   }
@@ -160,24 +165,53 @@ class _homeState extends State<home> {
   }
 }
 
-// Second screen
-class Wallpaper extends StatelessWidget {
+class wallpaper extends StatefulWidget {
   String url = "";
-  Wallpaper({this.url});
+  wallpaper({Key key, this.url}) : super(key: key);
+
+  @override
+  _wallpaperState createState() => _wallpaperState();
+}
+
+class _wallpaperState extends State<wallpaper> with TickerProviderStateMixin {
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: FittedBox(
-      child: Container(
-        height: MediaQuery.of(context).size.height,
-        child: Image.network(
-          url,
-          width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height,
-          fit: BoxFit.cover,
-        ),
+      body: Stack(
+        children: [
+          Container(
+            height: MediaQuery.of(context).size.height,
+            child: Image.network(
+              widget.url,
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height,
+              fit: BoxFit.cover,
+            ),
+          ),
+          Align(
+              alignment: Alignment.bottomCenter,
+              child: RaisedButton(
+                  color: Colors.black87,
+                  splashColor: Colors.white,
+                  padding: EdgeInsets.only(
+                      left: MediaQuery.of(context).size.width * 0.3,
+                      right: MediaQuery.of(context).size.width * 0.3),
+                  elevation: 2.0,
+                  child: new Text(
+                    "Set as wallpaper",
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  onPressed: () async {
+                    await wall.Wallpaper.homeScreen(widget.url);
+                    // Read documentation of https://pub.dev/packages/wallpaper#-readme-tab-
+                  })),
+        ],
       ),
-    ));
+    );
   }
 }
