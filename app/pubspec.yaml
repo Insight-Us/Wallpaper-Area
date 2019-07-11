@@ -61,6 +61,10 @@ flutter:
       - family: Schyler
         fonts:
           - asset: fonts/Pacifico-Regular.ttf
+        
+      - family: Kaushan
+        fonts:
+          - asset: fonts/KaushanScript-Regular.ttf
           
   #         style: italic
   #   - family: Trajan Pro

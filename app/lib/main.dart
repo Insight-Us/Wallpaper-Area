@@ -27,16 +27,7 @@ class _homeState extends State<home> with TickerProviderStateMixin {
     setState(() {
       this.getJsonData();
     });
-
-    _wallpaperAnimationController = AnimationController(vsync: this, )
   }
-
-  /*
-    Animation controller
-  */
-
-  Animation _wallpaperAnimation;
-  AnimationController _wallpaperAnimationController;
 
   Future<String> getJsonData() async {
     // final response = await http.get('https://jsonplaceholder.typicode.com/posts/');
