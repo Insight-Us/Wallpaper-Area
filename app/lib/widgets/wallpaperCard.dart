@@ -94,16 +94,16 @@ class _WallpaperCardState extends State<WallpaperCard>
                                   colorBlendMode: BlendMode.darken,
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.only(left: 8.0),
+                                  padding: const EdgeInsets.only(left: 18.0),
                                   child: Align(
                                       alignment: Alignment.centerLeft,
                                       child: new Text(
                                         Category[index]["category_name"],
                                         style: TextStyle(
-                                            fontFamily: "FredokaOne",
-                                            color: Colors.white,
-                                            fontSize: 30.0,
-                                            fontWeight: FontWeight.bold),
+                                          fontFamily: "FredokaOne",
+                                          color: Colors.white,
+                                          fontSize: 30.0,
+                                        ),
                                       )),
                                 ),
                               ]),

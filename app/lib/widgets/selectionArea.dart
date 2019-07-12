@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:convert';
+import 'package:app/utility/wallpaperSetter.dart';
 
 class SelectionArea extends StatefulWidget {
   String categorySelected;
@@ -16,7 +17,7 @@ class SelectionArea extends StatefulWidget {
 }
 
 class _SelectionAreaState extends State<SelectionArea> {
-  //Map<String, dynamic> data = new Map();  
+  //Map<String, dynamic> data = new Map();
   List data = new List();
   @override
   void initState() {
@@ -63,21 +64,29 @@ class _SelectionAreaState extends State<SelectionArea> {
                             widget.categorySelected,
                             style: TextStyle(
                                 fontSize: 20,
-                                fontFamily: "Righteous",
+                                fontFamily: "Kaushan",
                                 color: Colors.white),
                           )),
                     ),
                     GridView.builder(
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2, childAspectRatio: 0.5),
+                          crossAxisCount: 3, childAspectRatio: 0.5),
                       padding: EdgeInsets.only(top: 50.0),
-                      itemCount: widget.collection.length,
+                      itemCount: data.length,
                       itemBuilder: (BuildContext ctx, int index) {
-                        return Card(
-                          child: new Image(
-                            image: NetworkImage(widget.collection[index]["link"]),
-                            fit: BoxFit.cover,
-                          )
+                        return InkWell(
+                          onTap: (){
+                            Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => WallpaperSetter(url:data[index])));
+                          },
+                          child: Card(
+                              elevation: 5.0,
+                              clipBehavior: Clip.antiAlias,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20.0)),
+                              child: new Image(
+                                image: NetworkImage(data[index]),
+                                fit: BoxFit.cover,
+                              )),
                         );
                       },
                     )

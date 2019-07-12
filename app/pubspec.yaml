@@ -65,6 +65,9 @@ flutter:
       - family: FredokaOne
         fonts:
           - asset: fonts/FredokaOne-Regular.ttf
+      - family: Kaushan
+        fonts:
+          - asset: fonts/KaushanScript-Regular.ttf
           
   #         style: italic
   #   - family: Trajan Pro

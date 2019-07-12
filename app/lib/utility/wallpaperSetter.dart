@@ -1,6 +1,6 @@
 
-import 'package:WallpaperSetter/WallpaperSetter.dart' as wall;
 import 'package:flutter/material.dart';
+import 'package:wallpaper/wallpaper.dart' as wall;
 
 class WallpaperSetter extends StatefulWidget {
   String url = "";
@@ -40,11 +40,11 @@ class _WallpaperSetterState extends State<WallpaperSetter> with TickerProviderSt
                       right: MediaQuery.of(context).size.width * 0.3),
                   elevation: 2.0,
                   child: new Text(
-                    "Set as WallpaperSetter",
+                    "Set as Wallpaper",
                     style: TextStyle(color: Colors.white),
                   ),
                   onPressed: () async {
-                    await wall.WallpaperSetter.homeScreen(widget.url);
+                    await wall.Wallpaper.homeScreen(widget.url);
                     // Read documentation of https://pub.dev/packages/WallpaperSetter#-readme-tab-
                   })),
         ],
