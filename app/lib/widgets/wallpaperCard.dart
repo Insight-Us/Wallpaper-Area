@@ -57,7 +57,7 @@ class _WallpaperCardState extends State<WallpaperCard>
       builder: (BuildContext ctx, AsyncSnapshot snap) => data == null
           ? LinearProgressIndicator()
           : ListView.builder(
-              itemCount: 3,
+              itemCount: Category.length,
               itemBuilder: (BuildContext context, int index) {
                 return Padding(
                   padding: const EdgeInsets.only(left: 12.0, right: 12.0),

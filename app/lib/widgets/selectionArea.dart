@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'dart:convert';
 import 'package:app/utility/wallpaperSetter.dart';
 
 class SelectionArea extends StatefulWidget {
@@ -40,6 +39,7 @@ class _SelectionAreaState extends State<SelectionArea> {
   Widget build(BuildContext context) {
     return Container(
       child: Hero(
+          transitionOnUserGestures: false,
           tag: widget.categorySelected,
           child: Align(
             alignment: Alignment.center,
@@ -63,7 +63,7 @@ class _SelectionAreaState extends State<SelectionArea> {
                           child: new Text(
                             widget.categorySelected,
                             style: TextStyle(
-                                fontSize: 20,
+                                fontSize: 30,
                                 fontFamily: "Kaushan",
                                 color: Colors.white),
                           )),
@@ -71,18 +71,22 @@ class _SelectionAreaState extends State<SelectionArea> {
                     GridView.builder(
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 3, childAspectRatio: 0.5),
-                      padding: EdgeInsets.only(top: 50.0),
+                      padding: EdgeInsets.only(top: 60.0),
                       itemCount: data.length,
                       itemBuilder: (BuildContext ctx, int index) {
                         return InkWell(
-                          onTap: (){
-                            Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => WallpaperSetter(url:data[index])));
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (BuildContext context) =>
+                                        WallpaperSetter(url: data[index])));
                           },
                           child: Card(
-                              elevation: 5.0,
+                              elevation: 0.0,
                               clipBehavior: Clip.antiAlias,
                               shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(20.0)),
+                                  borderRadius: BorderRadius.circular(10.0)),
                               child: new Image(
                                 image: NetworkImage(data[index]),
                                 fit: BoxFit.cover,

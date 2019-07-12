@@ -1,5 +1,5 @@
-
 import 'package:flutter/material.dart';
+import 'dart:async';
 import 'package:wallpaper/wallpaper.dart' as wall;
 
 class WallpaperSetter extends StatefulWidget {
@@ -10,7 +10,8 @@ class WallpaperSetter extends StatefulWidget {
   _WallpaperSetterState createState() => _WallpaperSetterState();
 }
 
-class _WallpaperSetterState extends State<WallpaperSetter> with TickerProviderStateMixin {
+class _WallpaperSetterState extends State<WallpaperSetter>
+    with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
@@ -20,34 +21,29 @@ class _WallpaperSetterState extends State<WallpaperSetter> with TickerProviderSt
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(
+        fit: StackFit.loose,
         children: [
           Container(
-            height: MediaQuery.of(context).size.height,
             child: Image.network(
               widget.url,
               width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height,
               fit: BoxFit.cover,
             ),
-          ),
-          Align(
-              alignment: Alignment.bottomCenter,
-              child: RaisedButton(
-                  color: Colors.black87,
-                  splashColor: Colors.white,
-                  padding: EdgeInsets.only(
-                      left: MediaQuery.of(context).size.width * 0.3,
-                      right: MediaQuery.of(context).size.width * 0.3),
-                  elevation: 2.0,
-                  child: new Text(
-                    "Set as Wallpaper",
-                    style: TextStyle(color: Colors.white),
-                  ),
-                  onPressed: () async {
-                    await wall.Wallpaper.homeScreen(widget.url);
-                    // Read documentation of https://pub.dev/packages/WallpaperSetter#-readme-tab-
-                  })),
+          )
         ],
+      ),
+      floatingActionButton: new FloatingActionButton.extended(
+        label: new Text("Set as wallpaper"),
+        backgroundColor: Colors.black,
+        clipBehavior: Clip.antiAlias,
+        elevation: 12.0,
+        isExtended: true,
+        icon: Icon(Icons.phone_android),
+        onPressed: () async {
+          await wall.Wallpaper.homeScreen(widget.url);
+          // Read documentation of https://pub.dev/packages/WallpaperSetter#-readme-tab-
+        },
       ),
     );
   }

@@ -20,12 +20,13 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: new Text("SOFT-AI Wallpaper", style: TextStyle(color: Colors.black, fontFamily: 'Righteous'),),
-        backgroundColor: Colors.white,
+        
+        title: new Text("SOFT-AI Wallpaper", style: TextStyle(color: Colors.white, fontFamily: 'Righteous', fontSize: 30),),
+        backgroundColor: Colors.pink[700],
         elevation: 0.0,
         centerTitle: true,
       ),
-      body: WallpaperCard(),
+      body: Stack(children: [AppBackground(), WallpaperCard()]),
     );
   }
 }
