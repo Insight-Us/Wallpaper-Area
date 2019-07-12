@@ -1,27 +1,43 @@
 import 'package:flutter/material.dart';
+import 'dart:convert';
 
 class SelectionArea extends StatefulWidget {
   String categorySelected;
   String url;
-  List data;
+  List<dynamic> collection;
+  int id;
 
-  SelectionArea({Key key, this.categorySelected, this.url, this.data}) : super(key: key);
+  SelectionArea(
+      {Key key, this.categorySelected, this.url, this.collection, this.id})
+      : super(key: key);
 
   @override
   _SelectionAreaState createState() => _SelectionAreaState();
 }
 
 class _SelectionAreaState extends State<SelectionArea> {
+  //Map<String, dynamic> data = new Map();  
+  List data = new List();
   @override
-  void initState(){
+  void initState() {
     super.initState();
-    debugPrint(widget.data.toString());
+    this.filterData(widget.collection);
+    debugPrint(data.toString());
+    //print(data.toString());
+  }
+
+  filterData(List<dynamic> links) {
+    for (var i in links) {
+      //debugPrint(i.toString());
+      if (i["category"] == widget.id) {
+        data.add(i["link"]);
+      }
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      
       child: Hero(
           tag: widget.categorySelected,
           child: Align(
@@ -42,9 +58,29 @@ class _SelectionAreaState extends State<SelectionArea> {
                     Padding(
                       padding: const EdgeInsets.only(top: 20.0),
                       child: Align(
-                        alignment: Alignment.topCenter,
-                        child: new Text(widget.categorySelected, style: TextStyle(fontSize: 20, fontFamily: "Righteous", color: Colors.white),)),
+                          alignment: Alignment.topCenter,
+                          child: new Text(
+                            widget.categorySelected,
+                            style: TextStyle(
+                                fontSize: 20,
+                                fontFamily: "Righteous",
+                                color: Colors.white),
+                          )),
                     ),
+                    GridView.builder(
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2, childAspectRatio: 0.5),
+                      padding: EdgeInsets.only(top: 50.0),
+                      itemCount: widget.collection.length,
+                      itemBuilder: (BuildContext ctx, int index) {
+                        return Card(
+                          child: new Image(
+                            image: NetworkImage(widget.collection[index]["link"]),
+                            fit: BoxFit.cover,
+                          )
+                        );
+                      },
+                    )
                   ]),
             ),
           )),
