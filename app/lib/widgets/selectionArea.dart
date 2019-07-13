@@ -68,31 +68,34 @@ class _SelectionAreaState extends State<SelectionArea> {
                                 color: Colors.white),
                           )),
                     ),
-                    GridView.builder(
-                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 3, childAspectRatio: 0.5),
-                      padding: EdgeInsets.only(top: 60.0),
-                      itemCount: data.length,
-                      itemBuilder: (BuildContext ctx, int index) {
-                        return InkWell(
-                          onTap: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (BuildContext context) =>
-                                        WallpaperSetter(url: data[index])));
-                          },
-                          child: Card(
-                              elevation: 0.0,
-                              clipBehavior: Clip.antiAlias,
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10.0)),
-                              child: new Image(
-                                image: NetworkImage(data[index]),
-                                fit: BoxFit.cover,
-                              )),
-                        );
-                      },
+                    Container(
+                      child: GridView.builder(
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2, childAspectRatio: 1.5),
+                        padding: EdgeInsets.only(top: 70.0),
+                        itemCount: data.length,
+                        scrollDirection: Axis.horizontal,
+                        itemBuilder: (BuildContext ctx, int index) {
+                          return InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (BuildContext context) =>
+                                          WallpaperSetter(url: data[index])));
+                            },
+                            child: Card(
+                                elevation: 0.0,
+                                clipBehavior: Clip.antiAlias,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(5.0)),
+                                child: new Image(
+                                  image: NetworkImage(data[index]),
+                                  fit: BoxFit.cover,
+                                )),
+                          );
+                        },
+                      ),
                     )
                   ]),
             ),

@@ -26,9 +26,9 @@ class _WallpaperCardState extends State<WallpaperCard>
         AnimationController(vsync: this, duration: Duration(milliseconds: 500));
     _animation =
         Tween<double>(begin: 0.0, end: 1.0).animate(_animationController);
-
+    this.getJsonData();
     setState(() {
-      this.getJsonData();
+      
     });
   }
 
@@ -81,7 +81,7 @@ class _WallpaperCardState extends State<WallpaperCard>
                         child: Card(
                           clipBehavior: Clip.antiAlias,
                           shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20.0)),
+                              borderRadius: BorderRadius.circular(10.0)),
                           elevation: 4.0,
                           child: Stack(
                               alignment: Alignment.bottomCenter,
