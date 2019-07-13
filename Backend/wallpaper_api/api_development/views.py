@@ -3,7 +3,7 @@ from rest_framework import viewsets
 from .models import api, Category
 from .serializers import apiSerializer, CategorySerializer
 
-class apiView(viewsets.ModelViewSet):
+class apiView(viewsets.ReadOnlyModelViewSet):
     queryset = api.objects.all()
     serializer_class = apiSerializer
 
