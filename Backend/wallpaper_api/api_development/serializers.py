@@ -2,7 +2,7 @@
     Serializers translates to and from json 
 '''
 from rest_framework import serializers
-from .models import api, Category
+from .models import api, Category, countUpload
 
 class apiSerializer(serializers.ModelSerializer):
     class Meta:
@@ -13,4 +13,10 @@ class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
         fields = ('id', 'category_name', 'cover_page')
+
+class UploadCategoryWiseSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = countUpload
+        fields = ('count', 'category')
+
     

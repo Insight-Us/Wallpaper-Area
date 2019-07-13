@@ -14,6 +14,7 @@ class _WallpaperCardState extends State<WallpaperCard>
   final String urlCategory = "https://vivrti.pythonanywhere.com/category/";
   List data;
   List Category;
+  int count;
 
   @override
   void initState() {
@@ -100,15 +101,6 @@ class _WallpaperCardState extends State<WallpaperCard>
                                         ),
                                       )),
                                 ),
-                                Align(
-                                  alignment: Alignment.centerRight,
-                                                                  child: new Text(
-                                    "123 photos",
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontFamily: "SpaceMono"),
-                                  ),
-                                )
                               ]),
                         ),
                       ),
