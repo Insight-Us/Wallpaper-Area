@@ -70,8 +70,9 @@ class _SelectionAreaState extends State<SelectionArea> {
                     ),
                     Container(
                       child: GridView.builder(
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2, childAspectRatio: 1.5),
+                        gridDelegate:
+                            SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 2, childAspectRatio: 1.5),
                         padding: EdgeInsets.only(top: 70.0),
                         itemCount: data.length,
                         scrollDirection: Axis.horizontal,

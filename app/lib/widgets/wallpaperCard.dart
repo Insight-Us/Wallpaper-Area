@@ -15,21 +15,11 @@ class _WallpaperCardState extends State<WallpaperCard>
   List data;
   List Category;
 
-  Animation _animation;
-  AnimationController _animationController;
-
   @override
   void initState() {
     super.initState();
-
-    _animationController =
-        AnimationController(vsync: this, duration: Duration(milliseconds: 500));
-    _animation =
-        Tween<double>(begin: 0.0, end: 1.0).animate(_animationController);
     this.getJsonData();
-    setState(() {
-      
-    });
+    setState(() {});
   }
 
   Future<String> getJsonData() async {
@@ -55,12 +45,15 @@ class _WallpaperCardState extends State<WallpaperCard>
       initialData: data == null,
       future: getJsonData(),
       builder: (BuildContext ctx, AsyncSnapshot snap) => data == null
-          ? LinearProgressIndicator()
+          ? Align(
+              alignment: Alignment.bottomCenter,
+              child: LinearProgressIndicator())
           : ListView.builder(
               itemCount: Category.length,
               itemBuilder: (BuildContext context, int index) {
                 return Padding(
-                  padding: const EdgeInsets.only(left: 12.0, right: 12.0),
+                  padding:
+                      const EdgeInsets.only(top: 15.0, left: 10.0, right: 10.0),
                   child: InkWell(
                     onTap: () {
                       Navigator.push(
@@ -81,8 +74,9 @@ class _WallpaperCardState extends State<WallpaperCard>
                         child: Card(
                           clipBehavior: Clip.antiAlias,
                           shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10.0)),
-                          elevation: 4.0,
+                              borderRadius: BorderRadius.circular(5.0)),
+                          elevation: 3.0,
+                          color: Colors.black,
                           child: Stack(
                               alignment: Alignment.bottomCenter,
                               fit: StackFit.expand,
@@ -106,6 +100,15 @@ class _WallpaperCardState extends State<WallpaperCard>
                                         ),
                                       )),
                                 ),
+                                Align(
+                                  alignment: Alignment.centerRight,
+                                                                  child: new Text(
+                                    "123 photos",
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontFamily: "SpaceMono"),
+                                  ),
+                                )
                               ]),
                         ),
                       ),

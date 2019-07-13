@@ -10,10 +10,10 @@ class AppBackground extends StatelessWidget {
       return Image(
         image: AssetImage("Colorful-App-Tiles-Android-Wallpaper.jpg"),
         fit: BoxFit.cover,
+        filterQuality: FilterQuality.high,
         height: height,
         width: width,
       );
-
     });
   }
 }
