@@ -86,7 +86,8 @@ class _SelectionAreaState extends State<SelectionArea> {
                                           WallpaperSetter(url: data[index])));
                             },
                             child: Card(
-                                elevation: 0.0,
+                              color: Colors.black,
+                                elevation: 3.0,
                                 clipBehavior: Clip.antiAlias,
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(5.0)),
