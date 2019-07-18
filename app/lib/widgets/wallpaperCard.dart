@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -47,8 +48,8 @@ class _WallpaperCardState extends State<WallpaperCard>
       future: getJsonData(),
       builder: (BuildContext ctx, AsyncSnapshot snap) => data == null
           ? Align(
-              alignment: Alignment.bottomCenter,
-              child: LinearProgressIndicator())
+              alignment: Alignment.center,
+              child: CupertinoActivityIndicator())
           : ListView.builder(
             padding: EdgeInsets.only(top: 60.0),
               itemCount: Category.length,

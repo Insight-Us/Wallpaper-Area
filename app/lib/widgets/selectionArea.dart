@@ -22,8 +22,11 @@ class _SelectionAreaState extends State<SelectionArea> {
   @override
   void initState() {
     super.initState();
-    this.filterData(widget.collection);
-    debugPrint(data.toString());
+    data == null
+        ? print("Data is not null")
+        : setState(() {
+            filterData(widget.collection);
+          });
     //print(data.toString());
   }
 
@@ -71,11 +74,11 @@ class _SelectionAreaState extends State<SelectionArea> {
                     ),
                     Container(
                       child: GridView.builder(
-                        gridDelegate:
-                            SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 2, childAspectRatio: 1.5),
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 3, childAspectRatio: 1.5),
                         padding: EdgeInsets.only(top: 70.0),
                         itemCount: data.length,
+                        cacheExtent: 3.0,
                         scrollDirection: Axis.horizontal,
                         itemBuilder: (BuildContext ctx, int index) {
                           return InkWell(
@@ -88,21 +91,22 @@ class _SelectionAreaState extends State<SelectionArea> {
                             },
                             child: Card(
                               color: Colors.black,
-                                elevation: 3.0,
-                                clipBehavior: Clip.antiAlias,
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(5.0)),
-                                /*child: new Image(
+                              elevation: 3.0,
+                              clipBehavior: Clip.antiAlias,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(5.0)),
+                              /*child: new Image(
                                   filterQuality: FilterQuality.low,
                                   image: NetworkImage(data[index]),
                                   fit: BoxFit.cover,
                                 )*/
-                                child: FadeInImage(
-                                  image: NetworkImage(data[index]),
-                                  placeholder: AssetImage('assets/loading.gif'),
-                                  fit: BoxFit.cover,
-                                  fadeInCurve: Curves.slowMiddle,
-                                ),),
+                              child: FadeInImage(
+                                image: NetworkImage(data[index]),
+                                placeholder: AssetImage('assets/loading.gif'),
+                                fit: BoxFit.cover,
+                                fadeInCurve: Curves.slowMiddle,
+                              ),
+                            ),
                           );
                         },
                       ),
