@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:app/utility/wallpaperSetter.dart';
+import 'package:flutter/services.dart';
 
 class SelectionArea extends StatefulWidget {
   String categorySelected;
@@ -86,14 +87,22 @@ class _SelectionAreaState extends State<SelectionArea> {
                                           WallpaperSetter(url: data[index])));
                             },
                             child: Card(
-                                elevation: 0.0,
+                              color: Colors.black,
+                                elevation: 3.0,
                                 clipBehavior: Clip.antiAlias,
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(5.0)),
-                                child: new Image(
+                                /*child: new Image(
+                                  filterQuality: FilterQuality.low,
                                   image: NetworkImage(data[index]),
                                   fit: BoxFit.cover,
-                                )),
+                                )*/
+                                child: FadeInImage(
+                                  image: NetworkImage(data[index]),
+                                  placeholder: AssetImage('assets/loading.gif'),
+                                  fit: BoxFit.cover,
+                                  fadeInCurve: Curves.slowMiddle,
+                                ),),
                           );
                         },
                       ),

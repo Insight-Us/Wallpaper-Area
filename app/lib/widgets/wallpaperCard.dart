@@ -50,11 +50,12 @@ class _WallpaperCardState extends State<WallpaperCard>
               alignment: Alignment.bottomCenter,
               child: LinearProgressIndicator())
           : ListView.builder(
+            padding: EdgeInsets.only(top: 60.0),
               itemCount: Category.length,
               itemBuilder: (BuildContext context, int index) {
                 return Padding(
                   padding:
-                      const EdgeInsets.only(top: 15.0, left: 10.0, right: 10.0),
+                      const EdgeInsets.only(top: 5.0, left: 10.0, right: 10.0),
                   child: InkWell(
                     onTap: () {
                       Navigator.push(
@@ -91,11 +92,11 @@ class _WallpaperCardState extends State<WallpaperCard>
                                 Padding(
                                   padding: const EdgeInsets.only(left: 18.0),
                                   child: Align(
-                                      alignment: Alignment.centerLeft,
+                                      alignment: Alignment.center,
                                       child: new Text(
                                         Category[index]["category_name"],
                                         style: TextStyle(
-                                          fontFamily: "FredokaOne",
+                                          fontFamily: "Kaushan",
                                           color: Colors.white,
                                           fontSize: 30.0,
                                         ),

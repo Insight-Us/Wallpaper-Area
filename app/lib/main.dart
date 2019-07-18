@@ -37,6 +37,23 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
               fit: BoxFit.cover,
             ),
           ),
+          Align(
+            alignment: Alignment.topCenter,
+            child: new RichText(
+              text: TextSpan(children: [
+                TextSpan(
+                    text: "C",
+                    style: TextStyle(fontSize: 45.0, fontFamily: "Kaushan")),
+                TextSpan(
+                    text: "ategories",
+                    style: TextStyle(
+                      fontSize: 25.0,
+                      fontFamily: "Pacifico",
+                      fontWeight: FontWeight.normal
+                    ))
+              ]),
+            ),
+          ),
           WallpaperCard()
         ]),
       ),
