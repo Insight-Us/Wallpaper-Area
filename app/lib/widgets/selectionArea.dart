@@ -17,24 +17,26 @@ class SelectionArea extends StatefulWidget {
 }
 
 class _SelectionAreaState extends State<SelectionArea> {
-  //Map<String, dynamic> data = new Map();
-  List data = new List();
+  //Map<String, dynamic> thumbnails = new Map();
+  List<Map<String, dynamic>> images = new List();
   @override
   void initState() {
     super.initState();
-    data == null
-        ? print("Data is not null")
-        : setState(() {
-            filterData(widget.collection);
+    setState(() {
+            filterthumbnails(widget.collection);
           });
-    //print(data.toString());
+    
+    print(images);
   }
 
-  filterData(List<dynamic> links) {
+  filterthumbnails(List<dynamic> links) {
     for (var i in links) {
       //debugPrint(i.toString());
       if (i["category"] == widget.id) {
-        data.add(i["link"]);
+        images.add({
+          "image" : i["image"],
+          "thumbnail" : i["link_thumbnail"]
+        });
       }
     }
   }
@@ -73,39 +75,41 @@ class _SelectionAreaState extends State<SelectionArea> {
                           )),
                     ),
                     Container(
-                      child: GridView.builder(
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 3, childAspectRatio: 1.5),
-                        padding: EdgeInsets.only(top: 70.0),
-                        itemCount: data.length,
-                        cacheExtent: 3.0,
-                        scrollDirection: Axis.horizontal,
-                        itemBuilder: (BuildContext ctx, int index) {
-                          return InkWell(
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (BuildContext context) =>
-                                          WallpaperSetter(url: data[index])));
-                            },
-                            child: Card(
-                              color: Colors.black,
-                              elevation: 3.0,
-                              clipBehavior: Clip.antiAlias,
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(5.0)),
-                              child: FadeInImage(
-                                image: NetworkImage(data[index]),
-                                placeholder: AssetImage('assets/loading.gif'),
-                                fit: BoxFit.cover,
-                                fadeInCurve: Curves.slowMiddle,
-                              ),
-                            ),
-                          );
-                        },
-                      ),
-                    )
+                        child: GridView.count(
+                            crossAxisCount: 3,
+                            padding: EdgeInsets.only(top: 70.0),
+                            cacheExtent: 3.0,
+                            scrollDirection: Axis.horizontal,
+                            children: images
+                                .map(
+                                  (i) => InkWell(
+                                    onTap: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (BuildContext context) =>
+                                                  WallpaperSetter(
+                                                      url: i["image"] )));
+                                    },
+                                    child: Card(
+                                      color: Colors.black,
+                                      elevation: 3.0,
+                                      clipBehavior: Clip.antiAlias,
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(5.0)),
+                                      child: FadeInImage(
+                                        image: NetworkImage(
+                                            "https://vivrti.pythonanywhere.com${i["thumbnail"]}"),
+                                        placeholder:
+                                            AssetImage('assets/loading.gif'),
+                                        fit: BoxFit.cover,
+                                        fadeInCurve: Curves.slowMiddle,
+                                      ),
+                                    ),
+                                  ),
+                                )
+                                .toList())),
                   ]),
             ),
           )),
