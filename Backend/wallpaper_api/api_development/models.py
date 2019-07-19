@@ -18,8 +18,8 @@ class api(models.Model):
     link_original = models.CharField(max_length=1000, null=True, blank=True)
     link_thumbnail = models.CharField(max_length=500, null=True, blank=True)
     image = models.ImageField(upload_to='wallpapers', blank=True, null=True)
-    image_thumbnail = ImageSpecField(source='image', processors=[ResizeToFill(100, 50)],
-                                     format='JPEG', options={'quality': 60})
+    image_thumbnail = ImageSpecField(source='image', processors=[ResizeToFill( 500, 500 )],
+                                     format='JPEG', options={'quality': 50})
 
     uploaded_on = models.DateField(auto_now=True)
     category = models.ForeignKey(
