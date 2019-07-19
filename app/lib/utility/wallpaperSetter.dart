@@ -17,32 +17,40 @@ class _WallpaperSetterState extends State<WallpaperSetter>
     super.initState();
   }
 
+  GlobalKey<ScaffoldState> key = new GlobalKey<ScaffoldState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: key,
       body: Stack(
         fit: StackFit.loose,
         children: [
           Container(
-            child: Image.network(
-              widget.url,
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height,
+            height: MediaQuery.of(context).size.height,
+            width: MediaQuery.of(context).size.width,
+            child: FadeInImage(
+              image: NetworkImage(
+                widget.url,
+                
+              ),
               fit: BoxFit.cover,
+              placeholder: AssetImage("assets/loading.gif"),
             ),
+            color: Colors.black,
           )
         ],
       ),
       floatingActionButton: new FloatingActionButton.extended(
         label: new Text("Set as wallpaper"),
-        backgroundColor: Colors.black,
+        backgroundColor: Colors.blueGrey,
         clipBehavior: Clip.antiAlias,
         elevation: 12.0,
         isExtended: true,
         icon: Icon(Icons.phone_android),
         onPressed: () async {
           await wall.Wallpaper.homeScreen(widget.url);
-          // Read documentation of https://pub.dev/packages/WallpaperSetter#-readme-tab-
+          key.currentState.showSnackBar(SnackBar(content: new Text("Setting up wallpaper"),));
         },
       ),
     );

@@ -21,7 +21,6 @@ class _WallpaperCardState extends State<WallpaperCard>
   void initState() {
     super.initState();
     this.getJsonData();
-    print(data);
   }
 
   Future<String> getJsonData() async {
