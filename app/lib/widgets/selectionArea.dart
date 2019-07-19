@@ -91,24 +91,10 @@ class _SelectionAreaState extends State<SelectionArea> {
                             },
                             child: Card(
                               color: Colors.black,
-<<<<<<< HEAD
                               elevation: 3.0,
                               clipBehavior: Clip.antiAlias,
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(5.0)),
-                              /*child: new Image(
-=======
-                                elevation: 3.0,
-                                clipBehavior: Clip.antiAlias,
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(5.0)),
-                                /*child: new Image(
->>>>>>> fb1ec05daf02dfc7e3e9206dfbbb1b8562116544
-                                  filterQuality: FilterQuality.low,
-                                  image: NetworkImage(data[index]),
-                                  fit: BoxFit.cover,
-                                )*/
-<<<<<<< HEAD
                               child: FadeInImage(
                                 image: NetworkImage(data[index]),
                                 placeholder: AssetImage('assets/loading.gif'),
@@ -116,14 +102,6 @@ class _SelectionAreaState extends State<SelectionArea> {
                                 fadeInCurve: Curves.slowMiddle,
                               ),
                             ),
-=======
-                                child: FadeInImage(
-                                  image: NetworkImage(data[index]),
-                                  placeholder: AssetImage('assets/loading.gif'),
-                                  fit: BoxFit.cover,
-                                  fadeInCurve: Curves.slowMiddle,
-                                ),),
->>>>>>> fb1ec05daf02dfc7e3e9206dfbbb1b8562116544
                           );
                         },
                       ),
