@@ -11,8 +11,8 @@ class WallpaperCard extends StatefulWidget {
 
 class _WallpaperCardState extends State<WallpaperCard>
     with SingleTickerProviderStateMixin {
-  final String url = "https://vivrti.pythonanywhere.com/api/";
-  final String urlCategory = "https://vivrti.pythonanywhere.com/category/";
+  final String url = "http://localhost:8000/api/";
+  final String urlCategory = "http://localhost:8000/category/";
   List data;
   List Category;
   int count;
@@ -21,11 +21,10 @@ class _WallpaperCardState extends State<WallpaperCard>
   void initState() {
     super.initState();
     this.getJsonData();
-    setState(() {});
+    print(data);
   }
 
   Future<String> getJsonData() async {
-    // final response = await http.get('https://jsonplaceholder.typicode.com/posts/');
     final response =
         await http.get(url, headers: {"Accept": "application/json"});
     final categoryResponse =
@@ -37,6 +36,7 @@ class _WallpaperCardState extends State<WallpaperCard>
       Category = categoryJSON["results"];
       data = convertDataToJson['results'];
       data = data.reversed.toList();
+      //print(data);
     });
     return "Success";
   }
@@ -44,7 +44,6 @@ class _WallpaperCardState extends State<WallpaperCard>
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      initialData: data == null,
       future: getJsonData(),
       builder: (BuildContext ctx, AsyncSnapshot snap) => data == null
           ? Align(
