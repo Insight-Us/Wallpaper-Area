@@ -11,8 +11,8 @@ class WallpaperCard extends StatefulWidget {
 
 class _WallpaperCardState extends State<WallpaperCard>
     with SingleTickerProviderStateMixin {
-  final String url = "http://localhost:8000/api/";
-  final String urlCategory = "http://localhost:8000/category/";
+  final String url = "https://vivrti.pythonanywhere.com/api/";
+  final String urlCategory = "https://vivrti.pythonanywhere.com/category/";
   List data;
   List Category;
   int count;

@@ -100,7 +100,7 @@ class _SelectionAreaState extends State<SelectionArea> {
                                               BorderRadius.circular(5.0)),
                                       child: FadeInImage(
                                         image: NetworkImage(
-                                            "http://localhost:8000${i["thumbnail"]}"),
+                                            "https://vivrti.pythonanywhere.com${i["thumbnail"]}"),
                                         placeholder:
                                             AssetImage('assets/loading.gif'),
                                         fit: BoxFit.cover,
