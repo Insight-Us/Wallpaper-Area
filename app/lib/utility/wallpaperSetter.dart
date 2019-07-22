@@ -34,10 +34,10 @@ class _WallpaperSetterState extends State<WallpaperSetter>
                 widget.url,
                 
               ),
-              fit: BoxFit.cover,
-              placeholder: AssetImage("assets/loading.gif"),
+              fit: BoxFit.fitWidth,
+              placeholder: AssetImage("assets/loader-green.gif"),
             ),
-            color: Colors.black,
+            color: Color(0xFF131313),
           )
         ],
       ),
