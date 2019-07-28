@@ -1,9 +1,6 @@
-import 'dart:async';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'widgets/appBackground.dart';
 import 'widgets/wallpaperCard.dart';
 
 void main() => runApp(new MaterialApp(
@@ -19,14 +16,17 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> with TickerProviderStateMixin {
   @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        appBar: AppBar(
+          title: Container(
+
+              child: new RichText(
+            text: TextSpan(children: [TextSpan(text: 'C', style: TextStyle(fontSize: 40.0)), TextSpan(text: 'ategory', style: TextStyle(fontSize: 30.0)), ]),
+          )),
+          backgroundColor: Colors.pink[700].withOpacity(1.0),
+        ),
         body: Stack(children: [
           Container(
             height: MediaQuery.of(context).size.height,
@@ -37,23 +37,23 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
               fit: BoxFit.cover,
             ),
           ),
-          Align(
+          /*Align(
             alignment: Alignment.topCenter,
             child: new RichText(
               text: TextSpan(children: [
                 TextSpan(
                     text: "C",
-                    style: TextStyle(fontSize: 45.0, fontFamily: "Kaushan")),
+                    style: TextStyle(fontSize: 45.0, fontFamily: "Ubuntu")),
                 TextSpan(
                     text: "ategories",
                     style: TextStyle(
                       fontSize: 25.0,
-                      fontFamily: "Pacifico",
+                      fontFamily: "Ubuntu",
                       fontWeight: FontWeight.normal
                     ))
               ]),
             ),
-          ),
+          ),*/
           WallpaperCard()
         ]),
       ),

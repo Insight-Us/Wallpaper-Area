@@ -77,6 +77,9 @@ flutter:
       - family: SpaceMono
         fonts:
           - asset: fonts/SpaceMono-Regular.ttf
+      - family: Ubuntu
+        fonts:
+          - asset: fonts/Ubuntu-Regular.ttf
           
   #         style: italic
   #   - family: Trajan Pro

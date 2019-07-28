@@ -25,7 +25,7 @@ class _SelectionAreaState extends State<SelectionArea> {
     setState(() {
             filterthumbnails(widget.collection);
           });
-    
+    print(widget.url);
     print(images);
   }
 
@@ -93,7 +93,7 @@ class _SelectionAreaState extends State<SelectionArea> {
                                     },
                                     child: Card(
                                       color: Colors.black,
-                                      elevation: 3.0,
+                                      elevation: 10.0,
                                       clipBehavior: Clip.antiAlias,
                                       shape: RoundedRectangleBorder(
                                           borderRadius:
@@ -104,7 +104,7 @@ class _SelectionAreaState extends State<SelectionArea> {
                                         placeholder:
                                             AssetImage('assets/loading.gif'),
                                         fit: BoxFit.cover,
-                                        fadeInCurve: Curves.slowMiddle,
+                                        fadeInCurve: Curves.easeInOutCubic,
                                       ),
                                     ),
                                   ),

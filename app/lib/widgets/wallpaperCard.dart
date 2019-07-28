@@ -49,7 +49,6 @@ class _WallpaperCardState extends State<WallpaperCard>
               alignment: Alignment.center,
               child: CupertinoActivityIndicator())
           : ListView.builder(
-            padding: EdgeInsets.only(top: 60.0),
               itemCount: Category.length,
               itemBuilder: (BuildContext context, int index) {
                 return Padding(
