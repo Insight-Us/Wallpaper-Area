@@ -41,6 +41,7 @@ class _SelectionAreaState extends State<SelectionArea> {
     }
   }
 
+  // TODO : Change scroll direction
   @override
   Widget build(BuildContext context) {
     return Container(
